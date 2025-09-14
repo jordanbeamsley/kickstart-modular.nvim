@@ -55,3 +55,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Tab between two most recent buffers
 vim.keymap.set('n', '<leader><tab>', '<C-^>', { desc = 'Switch to alternate buffer' })
+
+-- Yank entire file into system clipboard
+vim.keymap.set('n', '<leader>yA', ':%y+<CR>', { desc = 'Yank entire buffer to system clipboard' })
