@@ -58,3 +58,6 @@ vim.keymap.set('n', '<leader><tab>', '<C-^>', { desc = 'Switch to alternate buff
 
 -- Yank entire file into system clipboard
 vim.keymap.set('n', '<leader>yA', ':%y+<CR>', { desc = 'Yank entire buffer to system clipboard' })
+
+-- Display floating window of yank/ delete register
+vim.keymap.set('n', '<leader>r', '<cmd>Telescope registers<cr>', { desc = 'Search registers' })
