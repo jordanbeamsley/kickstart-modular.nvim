@@ -18,28 +18,37 @@ return {
     opts = {
       notify_on_error = false,
       format_on_save = function(bufnr)
-        -- You can specify filetypes to autoformat on save here:
-        local enabled_filetypes = {
-          -- lua = true,
-          -- python = true,
+        -- Filetypes to autoformat on save. Add/remove entries as needed.
+        local format_filetypes = {
+          c = true,
+          cpp = true,
+          typescript = true,
+          javascript = true,
+          typescriptreact = true,
+          javascriptreact = true,
+          python = true,
+          lua = true,
         }
-        if enabled_filetypes[vim.bo[bufnr].filetype] then
+        if format_filetypes[vim.bo[bufnr].filetype] then
           return { timeout_ms = 500 }
-        else
-          return nil
         end
       end,
       default_format_opts = {
-        lsp_format = 'fallback', -- Use external formatters if configured below, otherwise use LSP formatting. Set to `false` to disable LSP formatting entirely.
+        -- Use external formatters configured below. Fall back to LSP formatting
+        -- only when no formatter is configured for the filetype.
+        lsp_format = 'fallback',
       },
-      -- You can also specify external formatters in here.
+      -- All formatter configuration lives here — one place for all languages.
+      -- Tools are installed via Mason; see the extra_tools list in lspconfig.lua.
       formatters_by_ft = {
-        -- rust = { 'rustfmt' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        c = { 'clang-format' },
+        cpp = { 'clang-format' },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        python = { 'ruff_format' },
+        lua = { 'stylua' },
       },
     },
   },

@@ -117,23 +117,13 @@ return {
         end,
       })
 
-      -- Enable the following language servers
-      --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-      --  See `:help lsp-config` for information about keys and how to configure
+      -- Enable the following language servers. They will automatically be installed.
+      -- See `:help lsp-config` for information about keys and how to configure.
       ---@type table<string, vim.lsp.Config>
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
-
-        stylua = {}, -- Used to format Lua code
+        clangd = {},
+        ts_ls = {},
+        pyright = {},
 
         -- Special Lua Config, as recommended by neovim help docs
         lua_ls = {
@@ -170,6 +160,15 @@ return {
         },
       }
 
+      -- Non-LSP tools for Mason to install (formatters, linters, etc.)
+      -- Formatter configuration lives in conform.lua — add entries here to keep them installed.
+      local extra_tools = {
+        'clang-format', -- C/C++
+        'prettierd', -- TypeScript / JavaScript
+        'ruff', -- Python
+        'stylua', -- Lua
+      }
+
       -- Ensure the servers and tools above are installed
       --
       -- To check the current status of installed tools and/or manually install
@@ -177,10 +176,8 @@ return {
       --    :Mason
       --
       -- You can press `g?` for help in this menu.
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        -- You can add other tools here that you want Mason to install
-      })
+      local ensure_installed = vim.tbl_keys(servers)
+      vim.list_extend(ensure_installed, extra_tools)
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
