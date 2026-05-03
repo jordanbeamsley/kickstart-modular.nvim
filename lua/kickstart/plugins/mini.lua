@@ -22,6 +22,10 @@ return {
       -- Auto-close brackets, quotes, etc. in insert mode
       require('mini.pairs').setup()
 
+      -- Zoom current window to full screen (and back), like tmux <prefix>z
+      require('mini.misc').setup()
+      vim.keymap.set('n', '<leader>z', MiniMisc.zoom, { desc = '[Z]oom window toggle' })
+
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
