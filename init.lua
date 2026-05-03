@@ -96,6 +96,9 @@ vim.g.have_nerd_font = false
 -- [[ Setting options ]]
 require 'options'
 
+-- [[ Per-language indentation ]]
+require 'custom.indentation'
+
 -- [[ Basic Keymaps ]]
 require 'keymaps'
 

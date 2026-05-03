@@ -24,6 +24,13 @@ vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 -- Enable break indent
 vim.o.breakindent = true
 
+-- Default indentation: 4 spaces. Per-language overrides live in custom/indentation.lua.
+-- Note: guess-indent.nvim and .editorconfig files can override these per-buffer.
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
+vim.o.expandtab = true
+
 -- Enable undo/redo changes even after closing and reopening a file
 vim.o.undofile = true
 
