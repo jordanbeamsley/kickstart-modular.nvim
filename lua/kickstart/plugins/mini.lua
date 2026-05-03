@@ -19,11 +19,15 @@ return {
         n_lines = 500,
       }
 
+      -- Auto-close brackets, quotes, etc. in insert mode
+      require('mini.pairs').setup()
+
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
+      -- - (visual) select text, then sa) to wrap in parens, sa" for quotes, etc.
       require('mini.surround').setup()
 
       -- Simple and easy statusline.
