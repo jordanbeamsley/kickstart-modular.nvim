@@ -124,6 +124,7 @@ return {
         clangd = {},
         ts_ls = {},
         pyright = {},
+        tailwindcss = {},
 
         -- Special Lua Config, as recommended by neovim help docs
         lua_ls = {
