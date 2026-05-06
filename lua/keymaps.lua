@@ -23,6 +23,12 @@ vim.diagnostic.config {
 
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+-- Buffer navigation
+vim.keymap.set('n', '<leader><tab>', '<C-^>', { desc = 'Switch to alternate buffer' })
+vim.keymap.set('n', ']b', '<cmd>bnext<CR>', { desc = 'Next buffer' })
+vim.keymap.set('n', '[b', '<cmd>bprev<CR>', { desc = 'Prev buffer' })
+vim.keymap.set('n', '<leader>bd', '<cmd>bdelete<CR>', { desc = '[B]uffer [D]elete' })
+
 -- Quickfix list navigation (mirrors ]d/[d for diagnostics)
 vim.keymap.set('n', ']q', '<cmd>cnext<CR>', { desc = 'Next quickfix item' })
 vim.keymap.set('n', '[q', '<cmd>cprev<CR>', { desc = 'Prev quickfix item' })
