@@ -101,12 +101,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --  See `:help lsp-config` for information about keys and how to configure
+--
+-- Your own server selections live in lua/custom/lsp.lua and are merged in below,
+-- so this file doesn't need to change when you add or remove a language.
+local custom_lsp = require 'custom.lsp'
+
 ---@type table<string, vim.lsp.Config>
-local servers = {
-  clangd = {},
-  ts_ls = {},
-  pyright = {},
-  tailwindcss = {},
+local servers = vim.tbl_extend('force', {
   -- clangd = {},
   -- gopls = {},
   -- pyright = {},
@@ -153,7 +154,7 @@ local servers = {
       },
     },
   },
-}
+}, custom_lsp.servers)
 
 vim.pack.add {
   gh 'neovim/nvim-lspconfig',
@@ -165,14 +166,10 @@ vim.pack.add {
 -- Automatically install LSPs and related tools to stdpath for Neovim
 require('mason').setup {}
 
-      -- Non-LSP tools for Mason to install (formatters, linters, etc.)
-      -- Formatter configuration lives in conform.lua — add entries here to keep them installed.
-      local extra_tools = {
-        'clang-format', -- C/C++
-        'prettierd', -- TypeScript / JavaScript
-        'ruff', -- Python
-        'stylua', -- Lua
-      }
+-- Translates between nvim-lspconfig server names and mason.nvim package names (e.g. lua_ls <-> lua-language-server)
+require('mason-lspconfig').setup {
+  automatic_enable = false, -- Change this to true if you want to automatically enable servers that are installed manually (e.g. via :Mason / :MasonInstall)
+}
 
 -- Ensure the servers and tools above are installed
 --
@@ -182,9 +179,7 @@ require('mason').setup {}
 --
 -- You can press `g?` for help in this menu.
 local ensure_installed = vim.tbl_keys(servers or {})
-vim.list_extend(ensure_installed, {
-  extra_tools
-})
+vim.list_extend(ensure_installed, custom_lsp.extra_tools)
 
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
